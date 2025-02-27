@@ -31,7 +31,7 @@ public class ProcesarRegistro extends HttpServlet {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setTipo("normal");
-        usuario.setActivo(true);
+        usuario.setActivo(false);
         
         // Guardar en la base de datos
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica2PU");
@@ -42,7 +42,7 @@ public class ProcesarRegistro extends HttpServlet {
             response.sendRedirect("registro-exitoso.jsp");
         } catch (Exception e) {
             request.setAttribute("error", "Error al registrar el usuario: " + e.getMessage());
-            request.getRequestDispatcher("registro-usuario.jsp").forward(request, response);
+            request.getRequestDispatcher("registro.jsp").forward(request, response);
         } finally {
             emf.close();
         }
