@@ -9,34 +9,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registro de usuario</title>
+        
+        <title>Iniciar sesión</title>
     </head>
     <body>
-        <div>
-            <h2>Registro</h2>
-            <form action="ProcesarRegistro" method="POST">
+        <main>
+            <h2>Iniciar sesión</h2>
+            
+            <% if (request.getAttribute("error") != null) { %>
                 <div>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <%= request.getAttribute("error") %>
                 </div>
-
-                <div>
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" required>
-                </div>
-
+            <% } %>
+            <form action="ProcesarInicioSesionUsuario" method="POST">
                 <div>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-
+                
                 <div>
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-
-                <button type="submit">Registrar</button>
+                
+                <button type="submit">Iniciar sesión</button>
             </form>
-        </div>
+            <p>¿No tienes cuenta? <a href="registro-usuario.jsp">Regístrate aquí</a></p>
+        </main>
     </body>
 </html>

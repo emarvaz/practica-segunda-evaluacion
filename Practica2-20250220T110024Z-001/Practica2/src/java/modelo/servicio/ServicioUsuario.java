@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import modelo.entidades.Usuario;
 import modelo.servicio.exceptions.NonexistentEntityException;
 
@@ -180,6 +182,20 @@ public class ServicioUsuario implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Usuario findByEmail(String email) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Usuario> query = em.createQuery(
+                "SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class);
+            query.setParameter("email", email);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Return null if no user is found
         } finally {
             em.close();
         }

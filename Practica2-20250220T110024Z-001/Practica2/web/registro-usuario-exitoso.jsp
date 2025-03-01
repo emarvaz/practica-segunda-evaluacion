@@ -10,13 +10,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <title>Registro Pendiente</title>
+        <title>Registro pendiente</title>
     </head>
     
     <body>
-        <h1>¡Registro completado!</h1>
-        <p>Tu cuenta ha sido registrada y está pendiente de activación por un administrador.</p>
-        <p>Una vez que tu cuenta sea activada, podrás acceder al sistema.</p>
-        <a href="login.jsp">Ir al login</a>
+        <main>
+            <h2>¡Registro completado!</h2>
+            <p>Tu cuenta ha sido registrada y está pendiente de activación por un administrador.</p>
+            <p>Una vez que tu cuenta sea activada, podrás acceder al sistema.</p>
+        </main>
     </body>
 </html>
