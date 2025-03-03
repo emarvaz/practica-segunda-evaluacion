@@ -195,7 +195,7 @@ public class ServicioUsuario implements Serializable {
             query.setParameter("email", email);
             return query.getSingleResult();
         } catch (NoResultException e) {
-            return null; // Return null if no user is found
+            return null;
         } finally {
             em.close();
         }

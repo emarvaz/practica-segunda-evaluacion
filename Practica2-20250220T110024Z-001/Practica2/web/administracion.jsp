@@ -1,10 +1,4 @@
-<%@page import="modelo.entidades.SolicitudRegistro"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-<%@page import="modelo.servicio.ServicioSolicitudRegistro"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.persistence.Persistence"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.List, modelo.entidades.Solicitud, modelo.servicio.ServicioSolicitud" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,42 +7,37 @@
         
         <title>Solicitudes</title>
     </head>
+    
     <body>
         <main>
-            <h2>Solicitudes pendientes</h2>
-            
             <%
-                EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
-                ServicioSolicitudRegistro servicioSolicitudRegistro = new ServicioSolicitudRegistro(entityManagerFactory);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                
-                List<SolicitudRegistro> solicitudesRegistro = servicioSolicitudRegistro.buscarPendientes();
-                
-                for (SolicitudRegistro solicitudRegistro : solicitudesRegistro) {
+                ServicioSolicitud servicioSolicitud = new ServicioSolicitud(javax.persistence.Persistence.createEntityManagerFactory("Practica2PU"));
+                List<Solicitud> solicitudes = servicioSolicitud.obtenerSolicitudesPendientes();
             %>
-            <div>
-                <h3><%= solicitudRegistro.getTipo() %></h3>
-                <p><%= solicitudRegistro.getMensaje() %></p>
-                <p>Fecha: <%= simpleDateFormat.format(solicitudRegistro.getFecha()) %></p>
-                <div>
-                    <form action="ProcesarSolicitudRegistro" method="POST"">
-                        <input type="hidden" name="notificacionId" value="<%= solicitudRegistro.getId() %>">
-                        <input type="hidden" name="usuarioId" value="<%= solicitudRegistro.getUsuario().getId() %>">
-                        <button type="submit" name="accion" value="aprobar">Aprobar</button>
-                        <button type="submit" name="accion" value="rechazar">Rechazar</button>
-                    </form>
-                </div>
-            </div>
-            <%
-                }
-                entityManagerFactory.close();
+            <table>
+                <tr><th>Email</th><th>Nombre</th><th>Acciones</th></tr>
                 
-                if (solicitudesRegistro.isEmpty()) {
-            %>
-                <p>No hay solicitudes de registro pendientes</p>
-            <%
-                }
-            %>
+                <% for (Solicitud solicitud : solicitudes) { %>
+                
+                    <tr>
+                        <td><%= solicitud.getEmail() %></td>
+                        <td><%= solicitud.getNombre() %></td>
+                        <td>
+                            <form action="aceptarSolicitud" method="post">
+                                <input type="hidden" name="id" value="<%= solicitud.getId() %>">
+                                <button type="submit">Aceptar</button>
+                            </form>
+                                
+                            <form action="rechazarSolicitud" method="post">
+                                <input type="hidden" name="id" value="<%= solicitud.getId() %>">
+                                <button type="submit">Rechazar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                <% } %>
+                
+            </table>
         </main>
     </body>
 </html>

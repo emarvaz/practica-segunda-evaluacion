@@ -42,7 +42,6 @@ public class ProcesarInicioSesionUsuario extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 
-                // Check if it's first login
                 if (session.getAttribute("primerLogin") == null) {
                     session.setAttribute("primerLogin", true);
                     response.sendRedirect("bienvenida.jsp");

@@ -12,13 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-/**
- *
- * @author jose
- */
 @Entity
 public class Usuario implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +27,7 @@ public class Usuario implements Serializable {
     @Column(length = 20, nullable = false)
     private String apellidos;
     @Column(length = 20, nullable = false)
-    private String tipo;
+    private String tipo = "normal";
     @Column(nullable = false)
     private boolean activo;
     @OneToMany(mappedBy = "usuario")
@@ -107,6 +102,7 @@ public class Usuario implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
+        
         return hash;
     }
 
@@ -116,7 +112,9 @@ public class Usuario implements Serializable {
         if (!(object instanceof Usuario)) {
             return false;
         }
+        
         Usuario other = (Usuario) object;
+        
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

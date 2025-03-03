@@ -1,9 +1,3 @@
-<%-- 
-    Document   : registro-usuario
-    Created on : 27 feb 2025, 19:02:34
-    Author     : Eduardo Martínez Vázquez
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +6,7 @@
         
         <title>Iniciar sesión</title>
     </head>
+    
     <body>
         <main>
             <h2>Iniciar sesión</h2>
@@ -34,6 +29,7 @@
                 
                 <button type="submit">Iniciar sesión</button>
             </form>
+            
             <p>¿No tienes cuenta? <a href="registro-usuario.jsp">Regístrate aquí</a></p>
         </main>
     </body>

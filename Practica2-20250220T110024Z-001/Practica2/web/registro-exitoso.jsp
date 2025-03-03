@@ -1,9 +1,3 @@
-<%-- 
-    Document   : registro-usuario-exitoso
-    Created on : 27 feb 2025, 22:55:00
-    Author     : Eduardo Martínez Vázquez
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -50,7 +50,7 @@ public class CrearDatos extends HttpServlet {
         ServicioOpinion so = new ServicioOpinion(emf);
         Usuario usuario = new Usuario();
         usuario.setNombre("Pepe");
-        usuario.setApellidos("Pérez");
+        usuario.setApellidos("P?rez");
         usuario.setEmail("pep@iescamas.es");
         usuario.setPassword("1234");
         usuario.setTipo("nornal");
@@ -58,7 +58,7 @@ public class CrearDatos extends HttpServlet {
         su.create(usuario);
         ExperienciaViaje e1 = new ExperienciaViaje();
         e1.setTitulo("Vacaciones de verano 2024");
-        e1.setDescripcion("Pasamos unos días en los Pirineos");
+        e1.setDescripcion("Pasamos unos d?as en los Pirineos");
         e1.setFechaInicio(new Date());
         e1.setUsuario(usuario);
         Actividad a1 = new Actividad();

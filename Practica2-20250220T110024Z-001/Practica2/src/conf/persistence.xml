@@ -6,7 +6,7 @@
     <class>modelo.entidades.Actividad</class>
     <class>modelo.entidades.Usuario</class>
     <class>modelo.entidades.Opinion</class>
-    <class>modelo.entidades.SolicitudRegistro</class>
+    <class>modelo.entidades.Solicitud</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/experiencias_de_viajes?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
