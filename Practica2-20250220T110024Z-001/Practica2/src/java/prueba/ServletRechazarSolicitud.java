@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.servicio.ServicioSolicitud;
 
-@WebServlet("/rechazarSolicitud")
+@WebServlet("/ServletRechazarSolicitud")
 public class ServletRechazarSolicitud extends HttpServlet {
     private ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
 

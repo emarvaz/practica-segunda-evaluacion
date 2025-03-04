@@ -11,15 +11,17 @@ import modelo.entidades.Solicitud;
 import modelo.entidades.Usuario;
 import modelo.servicio.ServicioSolicitud;
 import modelo.servicio.ServicioUsuario;
+import modelo.entidades.Email;
+import utilidades.Utilidades;
 
-@WebServlet("/aceptarSolicitud")
+@WebServlet("/ServletAceptarSolicitud")
 public class ServletAceptarSolicitud extends HttpServlet {
-    private ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
-    private ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
-
+    private final ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
+    private final ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
+    
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long idSolicitud = Long.parseLong(request.getParameter("id"));
-        
+        Long idSolicitud = Long.valueOf(request.getParameter("id"));
         Solicitud solicitud = servicioSolicitud.buscarPorId(idSolicitud);
 
         if (solicitud != null) {
@@ -32,6 +34,28 @@ public class ServletAceptarSolicitud extends HttpServlet {
 
             servicioUsuario.create(usuario);
             servicioSolicitud.eliminarSolicitud(idSolicitud);
+            
+            String to = usuario.getEmail();
+            String subject = "Solicitud aceptada";
+            String text = "Bienvenido " + usuario.getNombre() + " " + usuario.getApellidos() + ",\n\nTu solicitud de registro ha sido aprobada. Ahora eres un usuario activo de nuestro sistema.";
+            String from = "martvazqedua@gmail.com";
+            String password = "msws bmdd upao aipf";
+
+            Email email = new Email();
+            email.setTo(to);
+            email.setSubject(subject);
+            email.setText(text);
+            email.setFrom(from);
+            
+            Utilidades utilidades = new Utilidades();
+            String error = "El e-mail de confirmación se ha enviado correctamente.";
+            
+            try {
+                utilidades.enviarEmail(email, password);
+            } catch (Throwable e) {
+                error = "Error al enviar el e-mail de confirmación: <br>" + e.getClass().getName() + ":" + e.getMessage();
+                e.printStackTrace();
+            }
         }
         
         response.sendRedirect("administracion.jsp");

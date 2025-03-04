@@ -17,26 +17,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author jose
- */
 @Entity
 public class ExperienciaViaje implements Serializable, Comparable<ExperienciaViaje> {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @Column(length = 30, nullable = false)
     private String titulo;
+    
     @Column(length = 400, nullable = false)
     private String descripcion;
+    
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
+    
     @OneToMany
     private List<Actividad> actividades;
+    
     @ManyToOne
     private Usuario usuario;
     

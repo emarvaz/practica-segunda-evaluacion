@@ -16,7 +16,7 @@
                     <%= request.getAttribute("error") %>
                 </div>
             <% } %>
-            <form action="ProcesarInicioSesionUsuario" method="POST">
+            <form action="ServletInicioSesion" method="POST">
                 <div>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>

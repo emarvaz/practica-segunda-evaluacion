@@ -1,4 +1,3 @@
-<!-- registro-usuario.jsp -->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,12 +7,13 @@
     </head>
     <body>
         <main>
-            <form action="registro" method="post">
-                <input type="email" name="email" placeholder="Email" required>
+            <form action="ServletRegistro" method="POST">
+                <input type="email" name="email" placeholder="E-mail" required>
                 <input type="password" name="password" placeholder="Contraseña" required>
                 <input type="text" name="nombre" placeholder="Nombre" required>
                 <input type="text" name="apellidos" placeholder="Apellidos" required>
-                <input type="submit">Registrarse</button>
+                
+                <button type="submit">Registrarse</button>
             </form>
         </main>
     </body>

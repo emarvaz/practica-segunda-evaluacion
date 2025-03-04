@@ -15,10 +15,6 @@ import modelo.entidades.ExperienciaViaje;
 import modelo.entidades.Usuario;
 import modelo.servicio.exceptions.NonexistentEntityException;
 
-/**
- *
- * @author jose
- */
 public class ServicioExperienciaViaje implements Serializable {
 
     public ServicioExperienciaViaje(EntityManagerFactory emf) {

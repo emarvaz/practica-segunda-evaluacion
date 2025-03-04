@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import modelo.entidades.Usuario;
 import modelo.servicio.ServicioUsuario;
 
-@WebServlet(name = "ProcesarInicioSesionUsuario", urlPatterns = {"/ProcesarInicioSesionUsuario"})
-public class ProcesarInicioSesionUsuario extends HttpServlet {
+@WebServlet(name = "ServletInicioSesion", urlPatterns = {"/ServletInicioSesion"})
+public class ServletInicioSesion extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,37 +26,38 @@ public class ProcesarInicioSesionUsuario extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica2PU");
-        ServicioUsuario su = new ServicioUsuario(emf);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
+        ServicioUsuario servicioUsuario = new ServicioUsuario(entityManagerFactory);
         
         try {
-            Usuario usuario = su.findByEmail(email);
+            Usuario usuario = servicioUsuario.findByEmail(email);
             
             if (usuario != null && usuario.getPassword().equals(password)) {
                 if (!usuario.isActivo()) {
-                    request.setAttribute("error", "Tu cuenta aún no ha sido activada por un administrador");
-                    request.getRequestDispatcher("iniciar-sesion-usuario.jsp").forward(request, response);
+                    request.setAttribute("error", "Tu solicitud de registro aún no ha sido aprobada por un administrador.");
+                    request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
+                    
                     return;
                 }
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 
-                if (session.getAttribute("primerLogin") == null) {
-                    session.setAttribute("primerLogin", true);
-                    response.sendRedirect("bienvenida.jsp");
+                if (usuario.getTipo().equals("administrador")) {
+                    response.sendRedirect("administracion.jsp");
                 } else {
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("bienvenida.jsp");
                 }
+                    
             } else {
                 request.setAttribute("error", "Email o contraseña incorrectos");
-                request.getRequestDispatcher("iniciar-sesion-usuario.jsp").forward(request, response);
+                request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
             }
         } catch (Exception e) {
             request.setAttribute("error", "Error en el login: " + e.getMessage());
-            request.getRequestDispatcher("iniciar-sesion-usuario.jsp").forward(request, response);
+            request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
         } finally {
-            emf.close();
+            entityManagerFactory.close();
         }
     }
     

@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/registro")
+@WebServlet("/ServletRegistro")
 public class ServletRegistro extends HttpServlet {
-    private ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
-
+    private final ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Solicitud solicitud = new Solicitud(
@@ -25,6 +25,6 @@ public class ServletRegistro extends HttpServlet {
 
         servicioSolicitud.crearSolicitud(solicitud);
         
-        response.sendRedirect("registro-exitoso.jsp");
+        response.sendRedirect("solicitud-registro-enviada.jsp");
     }
 }

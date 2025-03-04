@@ -24,13 +24,9 @@ import modelo.servicio.ServicioExperienciaViaje;
 import modelo.servicio.ServicioOpinion;
 import modelo.servicio.ServicioUsuario;
 
-/**
- *
- * @author jose
- */
-@WebServlet(name = "CrearDatos", urlPatterns = {"/CrearDatos"})
-public class CrearDatos extends HttpServlet {
-
+@WebServlet(name = "ServletCrearDatos", urlPatterns = {"/ServletCrearDatos"})
+public class ServletCrearDatos extends HttpServlet {
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,38 +39,56 @@ public class CrearDatos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica2PU");
-        ServicioUsuario su = new ServicioUsuario(emf);
-        ServicioExperienciaViaje se = new ServicioExperienciaViaje(emf);
-        ServicioActividad sa = new ServicioActividad(emf);
-        ServicioOpinion so = new ServicioOpinion(emf);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
+        ServicioUsuario servicioUsuario = new ServicioUsuario(entityManagerFactory);
+        ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
+        ServicioActividad servicioActividad = new ServicioActividad(entityManagerFactory);
+        ServicioOpinion servicioOpinion = new ServicioOpinion(entityManagerFactory);
+        
+        Usuario administrador = new Usuario();
+        administrador.setNombre("Administrador");
+        administrador.setApellidos("");
+        administrador.setEmail("administrador@gmail.com");
+        administrador.setPassword("administrador");
+        administrador.setTipo("administrador");
+        administrador.setActivo(true);
+        
         Usuario usuario = new Usuario();
         usuario.setNombre("Pepe");
         usuario.setApellidos("P?rez");
-        usuario.setEmail("pep@iescamas.es");
-        usuario.setPassword("1234");
-        usuario.setTipo("nornal");
+        usuario.setEmail("pepe@iescamas.es");
+        usuario.setPassword("pepe");
+        usuario.setTipo("normal");
         usuario.setActivo(true);
-        su.create(usuario);
-        ExperienciaViaje e1 = new ExperienciaViaje();
-        e1.setTitulo("Vacaciones de verano 2024");
-        e1.setDescripcion("Pasamos unos d?as en los Pirineos");
-        e1.setFechaInicio(new Date());
-        e1.setUsuario(usuario);
-        Actividad a1 = new Actividad();
-        a1.setTitulo("Sendero del valle de Ordesa");
-        a1.setFecha(new Date());
-        a1.setDescripcion("Subimos por el valle de Ordesa hasta la cascada de La Cola de Caballo");
-        a1.getImagenes().add("foto1");
-        e1.getActividades().add(a1);
-        sa.create(a1);
-        se.create(e1);
-        Opinion o1 = new Opinion();
-        o1.setUsuario(usuario);
-        o1.setExperiencia(e1);
-        o1.setContenido("Es una ruta espectacular");
-        so.create(o1);
-        emf.close();
+        
+        servicioUsuario.create(usuario);
+        servicioUsuario.create(administrador);
+        
+        ExperienciaViaje experienciaViaje = new ExperienciaViaje();
+        experienciaViaje.setTitulo("Vacaciones de verano 2024");
+        experienciaViaje.setDescripcion("Pasamos unos d?as en los Pirineos");
+        experienciaViaje.setFechaInicio(new Date());
+        experienciaViaje.setUsuario(usuario);
+        
+        servicioExperienciaViaje.create(experienciaViaje);
+        
+        Actividad actividad = new Actividad();
+        actividad.setTitulo("Sendero del valle de Ordesa");
+        actividad.setFecha(new Date());
+        actividad.setDescripcion("Subimos por el valle de Ordesa hasta la cascada de La Cola de Caballo");
+        actividad.getImagenes().add("foto1");
+        
+        experienciaViaje.getActividades().add(actividad);
+        servicioActividad.create(actividad);
+        
+        Opinion opinion = new Opinion();
+        opinion.setUsuario(usuario);
+        opinion.setExperiencia(experienciaViaje);
+        opinion.setContenido("Es una ruta espectacular");
+        
+        servicioOpinion.create(opinion);
+        
+        entityManagerFactory.close();
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");

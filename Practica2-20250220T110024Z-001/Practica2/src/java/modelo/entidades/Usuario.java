@@ -15,21 +15,29 @@ import javax.persistence.OneToMany;
 @Entity
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 20, nullable = false)
+    
+    @Column(length = 50, nullable = false)
     private String email;
+    
     @Column(length = 30, nullable = false)
     private String password;
+    
     @Column(length = 20, nullable = false)
     private String nombre;
+    
     @Column(length = 20, nullable = false)
     private String apellidos;
+    
     @Column(length = 20, nullable = false)
     private String tipo = "normal";
+    
     @Column(nullable = false)
     private boolean activo;
+    
     @OneToMany(mappedBy = "usuario")
     private List<ExperienciaViaje> experiencias;
 

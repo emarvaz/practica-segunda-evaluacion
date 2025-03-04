@@ -11,7 +11,7 @@ public class Solicitud implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(length = 20, nullable = false)
+    @Column(length = 50, nullable = false)
     private String email;
     
     @Column(length = 30, nullable = false)

@@ -150,18 +150,18 @@ public class ServicioUsuario implements Serializable {
     }
 
     private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
+        EntityManager entityManager = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Usuario.class));
-            Query q = em.createQuery(cq);
+            CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery();
+            criteriaQuery.select(criteriaQuery.from(Usuario.class));
+            Query query = entityManager.createQuery(criteriaQuery);
             if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
+                query.setMaxResults(maxResults);
+                query.setFirstResult(firstResult);
             }
-            return q.getResultList();
+            return query.getResultList();
         } finally {
-            em.close();
+            entityManager.close();
         }
     }
 

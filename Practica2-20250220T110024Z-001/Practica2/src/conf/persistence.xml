@@ -9,11 +9,11 @@
     <class>modelo.entidades.Solicitud</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/experiencias_de_viajes?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
-      <property name="javax.persistence.jdbc.user" value="experiencias_de_viajes"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="experiencias_de_viajes"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/experiencias_de_viajes?zeroDateTimeBehavior=CONVERT_TO_NULL" />
+      <property name="javax.persistence.jdbc.user" value="experiencias_de_viajes" />
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+      <property name="javax.persistence.jdbc.password" value="experiencias_de_viajes" />
+      <property name="javax.persistence.schema-generation.database.action" value="create" />
     </properties>
   </persistence-unit>
 </persistence>
