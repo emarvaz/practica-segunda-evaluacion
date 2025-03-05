@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.servicio.ServicioSolicitud;
 
-@WebServlet("/ServletRechazarSolicitud")
+@WebServlet(name = "/ServletRechazarSolicitud",  urlPatterns = "/administrador/ServletRechazarSolicitud")
 public class ServletRechazarSolicitud extends HttpServlet {
     private ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
 
@@ -18,6 +18,6 @@ public class ServletRechazarSolicitud extends HttpServlet {
         
         servicioSolicitud.eliminarSolicitud(idSolicitud);
         
-        response.sendRedirect("./administrador/administracion.jsp");
+        response.sendRedirect("ServletAdministracion");
     }
 }

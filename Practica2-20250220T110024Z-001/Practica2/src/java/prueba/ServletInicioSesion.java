@@ -20,9 +20,19 @@ import modelo.servicio.ServicioUsuario;
 public class ServletInicioSesion extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         request.setCharacterEncoding("ISO-8859-1");
-        
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
@@ -35,7 +45,7 @@ public class ServletInicioSesion extends HttpServlet {
             if (usuario != null && usuario.getPassword().equals(password)) {
                 if (!usuario.isActivo()) {
                     request.setAttribute("error", usuario.getEmail() + " ha sido inactivada por el administrador.");
-                    request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
+                    request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
                     
                     return;
                 }
@@ -44,26 +54,22 @@ public class ServletInicioSesion extends HttpServlet {
                 session.setAttribute("usuario", usuario);
                 
                 if (usuario.getTipo().equals("administrador")) {
-                    response.sendRedirect("./administrador/administracion.jsp");
+                    response.sendRedirect("administrador/ServletAdministracion");
                 } else {
-                    response.sendRedirect("./normal/bienvenida.jsp");
+                    response.sendRedirect("normal/ServletAplicacion");
                 }
                     
             } else {
                 request.setAttribute("error", "Email o contraseña incorrectos");
-                request.getRequestDispatcher("./inicio-sesion.jsp").forward(request, response);
+                request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
             }
         } catch (Exception e) {
             request.setAttribute("error", "Error en el login: " + e.getMessage());
-            request.getRequestDispatcher("./inicio-sesion.jsp").forward(request, response);
+            request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
         } finally {
             entityManagerFactory.close();
         }
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        
         processRequest(request, response);
     }
 }

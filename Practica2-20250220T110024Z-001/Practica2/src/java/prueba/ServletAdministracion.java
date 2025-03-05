@@ -5,24 +5,19 @@
 package prueba;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.Persistence;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.entidades.Usuario;
-import modelo.servicio.ServicioUsuario;
 
 /**
  *
  * @author Eduardo Martínez Vázquez
  */
-@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/administrador/ServletEditarUsuario"})
-public class ServletEditarUsuario extends HttpServlet {
-    ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
+@WebServlet(name = "ServletAdministracion", urlPatterns = {"/administrador/ServletAdministracion"})
+public class ServletAdministracion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,9 +29,7 @@ public class ServletEditarUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/administrador/editar-usuario.jsp").forward(request, response);
-        
+            throws ServletException, IOException {        
         response.setContentType("text/html;charset=ISO-8859-1");
     }
 
@@ -52,6 +45,7 @@ public class ServletEditarUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/administrador/administracion.jsp").forward(request, response);
         processRequest(request, response);
     }
 
@@ -66,29 +60,7 @@ public class ServletEditarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idUsuario = Long.valueOf(request.getParameter("id-usuario"));
-        String emailUsuario = request.getParameter("e-mail-usuario");
-        String contrasenaUsuario = request.getParameter("contrasena-usuario");
-        String nombreUsuario = request.getParameter("nombre-usuario");
-        String apellidosUsuario = request.getParameter("apellidos-usuario");
-        String tipoUsuario = request.getParameter("tipo-usuario");
-        Boolean estaActivoUsuario = request.getParameter("esta-activo-usuario") != null;
-        
-        Usuario usuario = servicioUsuario.findUsuario(idUsuario);
-        usuario.setEmail(emailUsuario);
-        usuario.setPassword(contrasenaUsuario);
-        usuario.setNombre(nombreUsuario);
-        usuario.setApellidos(apellidosUsuario);
-        usuario.setTipo(tipoUsuario);
-        usuario.setActivo(estaActivoUsuario);
-        
-        try {
-            servicioUsuario.edit(usuario);
-        } catch (Exception e) {
-            Logger.getLogger(ServletEditarUsuario.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
-        response.sendRedirect("ServletAdministracion");                
+        processRequest(request, response);
     }
 
     /**

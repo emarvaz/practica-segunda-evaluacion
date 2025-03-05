@@ -15,6 +15,7 @@
             <section>
                 <%
                     ServicioSolicitud servicioSolicitud = new ServicioSolicitud(javax.persistence.Persistence.createEntityManagerFactory("Practica2PU"));
+                    
                     List<Solicitud> solicitudes = servicioSolicitud.obtenerSolicitudesPendientes();
                 %>
                 
@@ -26,22 +27,30 @@
                         <th>Nombre y apellidos</th>
                         <th>Acciones</th>
                     </tr>
-                    <% for (Solicitud solicitud : solicitudes) { %>
-                        <tr>
-                            <td><%= solicitud.getEmail() %></td>
-                            <td><%= solicitud.getNombre() + " " + solicitud.getApellidos()%></td>
-                            <td>
-                                <form action="../ServletAceptarSolicitud" method="post">
-                                    <input type="hidden" name="id" value="<%= solicitud.getId() %>">
-                                    <button type="submit">Aceptar</button>
-                                </form>
+                    <% if (solicitudes.isEmpty()) { %>
+                            <tr>
+                                <td colspan="3">No hay solicitudes pendientes.</td>
+                            </tr>
+                    <% } else { %>
+                        <% for (Solicitud solicitud : solicitudes) { %>
+                            <tr>
+                                <td><%= solicitud.getEmail() %></td>
+                                <td><%= solicitud.getNombre() + " " + solicitud.getApellidos()%></td>
+                                <td>
+                                    <form action="ServletAceptarSolicitud" method="post">
+                                        <input type="hidden" name="id" value="<%= solicitud.getId() %>">
 
-                                <form action="ServletRechazarSolicitud" method="post">
-                                    <input type="hidden" name="id" value="<%= solicitud.getId() %>">
-                                    <button type="submit">Rechazar</button>
-                                </form>
-                            </td>
-                        </tr>
+                                        <button type="submit">Aceptar</button>
+                                    </form>
+
+                                    <form action="ServletRechazarSolicitud" method="post">
+                                        <input type="hidden" name="id" value="<%= solicitud.getId() %>">
+
+                                        <button type="submit">Rechazar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% } %>
                     <% } %>
                 </table>
             </section>
@@ -49,6 +58,7 @@
             <section>
                 <%
                     ServicioUsuario servicioUsuario = new ServicioUsuario(javax.persistence.Persistence.createEntityManagerFactory("Practica2PU"));
+                    
                     List<Usuario> usuarios = servicioUsuario.findUsuarioEntities();
                 %>
                 
@@ -80,9 +90,9 @@
                                 <% } %>
                             </td>
                             <td>
-                                <a href="./editar-usuario.jsp?id-usuario=<%= usuario.getId() %>"><button>Editar</button></a>
+                                <a href="ServletEditarUsuario?id-usuario=<%= usuario.getId() %>"><button>Editar</button></a>
 
-                                <form action="../ServletEliminarUsuario" method="POST">
+                                <form action="ServletEliminarUsuario" method="POST">
                                     <input type="hidden" name="id-usuario" value="<%= usuario.getId() %>">
                                     
                                     <button type="submit">Eliminar</button>
@@ -94,7 +104,7 @@
             </section>
                 
             <section>
-                <a href="../index.html"><button>Volver a la página principal</button></a>
+                <a href="../"><button>Volver a la página principal</button></a>
             </section>
         </main>
     </body>

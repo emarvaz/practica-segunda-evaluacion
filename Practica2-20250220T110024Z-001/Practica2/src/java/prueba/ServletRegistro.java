@@ -10,9 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ServletRegistro")
+@WebServlet(name = "/ServletRegistro", urlPatterns = {"/ServletRegistro"})
 public class ServletRegistro extends HttpServlet {
     private final ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/registro.jsp").forward(request, response);
+    }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,6 +30,6 @@ public class ServletRegistro extends HttpServlet {
 
         servicioSolicitud.crearSolicitud(solicitud);
         
-        response.sendRedirect("./solicitud-registro-enviada.jsp");
+        response.sendRedirect("./");
     }
 }

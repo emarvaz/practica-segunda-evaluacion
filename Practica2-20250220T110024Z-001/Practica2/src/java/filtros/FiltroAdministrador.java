@@ -33,9 +33,13 @@ public class FiltroAdministrador implements Filter {
         
         Usuario usuario = (Usuario)sesion.getAttribute("usuario");
         
-        if (usuario == null || !usuario.getTipo().equals("administrador")) {
-            // Si no hay usuario registrado o no es administrador.
-            respuesta.sendRedirect(peticion.getServletContext().getContextPath() + "/normal/bienvenida.jsp");
+        if (usuario == null) {
+            // Si no hay usuario registrado.
+            respuesta.sendRedirect(peticion.getServletContext().getContextPath() + "/ServletInicioSesion");
+            
+            return;
+        } else if (!usuario.getTipo().equals("administrador")) {
+            respuesta.sendRedirect(peticion.getServletContext().getContextPath() + "/normal/ServletAplicacion");
             
             return;
         }

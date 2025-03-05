@@ -14,7 +14,7 @@ import modelo.servicio.ServicioUsuario;
 import modelo.entidades.Email;
 import utilidades.Utilidades;
 
-@WebServlet("/ServletAceptarSolicitud")
+@WebServlet(name = "/ServletAceptarSolicitud",  urlPatterns = "/administrador/ServletAceptarSolicitud")
 public class ServletAceptarSolicitud extends HttpServlet {
     private final ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
     private final ServicioSolicitud servicioSolicitud = new ServicioSolicitud(Persistence.createEntityManagerFactory("Practica2PU"));
@@ -58,6 +58,6 @@ public class ServletAceptarSolicitud extends HttpServlet {
             }
         }
         
-        response.sendRedirect("./administrador/administracion.jsp");
+        response.sendRedirect("ServletAdministracion");
     }
 }

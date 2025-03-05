@@ -1,4 +1,8 @@
-<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1" %>
+
+<%@taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,7 +34,7 @@
                 <button type="submit">Iniciar sesión</button>
             </form>
             
-            <p>¿No tienes cuenta? <a href="./registro-usuario.jsp">Regístrate aquí</a></p>
+            <p>¿No tienes cuenta? <a href="${pageContext.request.contextPath}/registro-usuario.jsp">Regístrate aquí</a></p>
         </main>
     </body>
 </html>

@@ -21,7 +21,7 @@ import modelo.servicio.exceptions.NonexistentEntityException;
  *
  * @author Eduardo Martínez Vázquez
  */
-@WebServlet(name = "ServletEliminarUsuario", urlPatterns = {"/ServletEliminarUsuario"})
+@WebServlet(name = "ServletEliminarUsuario", urlPatterns = {"/administrador/ServletEliminarUsuario"})
 public class ServletEliminarUsuario extends HttpServlet {
     ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
     
@@ -73,9 +73,7 @@ public class ServletEliminarUsuario extends HttpServlet {
             Logger.getLogger(ServletEliminarUsuario.class.getName()).log(Level.SEVERE, null, exception);
         }
         
-        response.sendRedirect("./administrador/administracion.jsp");
-        
-        processRequest(request, response);
+        response.sendRedirect("ServletAdministracion");        
     }
 
     /**
