@@ -30,7 +30,7 @@
                 <button type="submit">Iniciar sesión</button>
             </form>
             
-            <p>¿No tienes cuenta? <a href="registro-usuario.jsp">Regístrate aquí</a></p>
+            <p>¿No tienes cuenta? <a href="./registro-usuario.jsp">Regístrate aquí</a></p>
         </main>
     </body>
 </html>

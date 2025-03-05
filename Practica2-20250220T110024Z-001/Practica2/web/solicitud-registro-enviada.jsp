@@ -17,7 +17,7 @@
             </section>
             
             <section>
-                <a href="index.html"><button>Volver a la página principal</button></a>
+                <a href="./index.html"><button>Volver a la página principal</button></a>
             </section>
         </main>
     </body>

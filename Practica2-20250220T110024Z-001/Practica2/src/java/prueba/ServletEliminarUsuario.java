@@ -73,7 +73,7 @@ public class ServletEliminarUsuario extends HttpServlet {
             Logger.getLogger(ServletEliminarUsuario.class.getName()).log(Level.SEVERE, null, exception);
         }
         
-        response.sendRedirect("administracion.jsp");
+        response.sendRedirect("./administrador/administracion.jsp");
         
         processRequest(request, response);
     }

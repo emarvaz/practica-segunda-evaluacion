@@ -31,7 +31,7 @@
                             <td><%= solicitud.getEmail() %></td>
                             <td><%= solicitud.getNombre() + " " + solicitud.getApellidos()%></td>
                             <td>
-                                <form action="ServletAceptarSolicitud" method="post">
+                                <form action="../ServletAceptarSolicitud" method="post">
                                     <input type="hidden" name="id" value="<%= solicitud.getId() %>">
                                     <button type="submit">Aceptar</button>
                                 </form>
@@ -82,7 +82,7 @@
                             <td>
                                 <a href="./editar-usuario.jsp?id-usuario=<%= usuario.getId() %>"><button>Editar</button></a>
 
-                                <form action="ServletEliminarUsuario" method="POST">
+                                <form action="../ServletEliminarUsuario" method="POST">
                                     <input type="hidden" name="id-usuario" value="<%= usuario.getId() %>">
                                     
                                     <button type="submit">Eliminar</button>
@@ -94,7 +94,7 @@
             </section>
                 
             <section>
-                <a href="index.html"><button>Volver a la página principal</button></a>
+                <a href="../index.html"><button>Volver a la página principal</button></a>
             </section>
         </main>
     </body>

@@ -13,7 +13,7 @@
                 <p>Tu cuenta ha sido activada correctamente.</p>
                 <p>Ya puedes comenzar a utilizar todas las funcionalidades de la aplicación.</p>
             </div>
-            <a href="index.html">Continuar a la página principal</a>
+            <a href="../index.html">Continuar a la página principal</a>
         </div>
     </body>
 </html>

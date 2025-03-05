@@ -34,7 +34,7 @@ public class ServletInicioSesion extends HttpServlet {
             
             if (usuario != null && usuario.getPassword().equals(password)) {
                 if (!usuario.isActivo()) {
-                    request.setAttribute("error", "Tu solicitud de registro aún no ha sido aprobada por un administrador.");
+                    request.setAttribute("error", usuario.getEmail() + " ha sido inactivada por el administrador.");
                     request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
                     
                     return;
@@ -44,18 +44,18 @@ public class ServletInicioSesion extends HttpServlet {
                 session.setAttribute("usuario", usuario);
                 
                 if (usuario.getTipo().equals("administrador")) {
-                    response.sendRedirect("administracion.jsp");
+                    response.sendRedirect("./administrador/administracion.jsp");
                 } else {
-                    response.sendRedirect("bienvenida.jsp");
+                    response.sendRedirect("./normal/bienvenida.jsp");
                 }
                     
             } else {
                 request.setAttribute("error", "Email o contraseña incorrectos");
-                request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
+                request.getRequestDispatcher("./inicio-sesion.jsp").forward(request, response);
             }
         } catch (Exception e) {
             request.setAttribute("error", "Error en el login: " + e.getMessage());
-            request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
+            request.getRequestDispatcher("./inicio-sesion.jsp").forward(request, response);
         } finally {
             entityManagerFactory.close();
         }

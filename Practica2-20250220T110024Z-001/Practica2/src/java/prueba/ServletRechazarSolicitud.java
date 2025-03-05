@@ -18,7 +18,6 @@ public class ServletRechazarSolicitud extends HttpServlet {
         
         servicioSolicitud.eliminarSolicitud(idSolicitud);
         
-        response.sendRedirect("administracion.jsp");
+        response.sendRedirect("./administrador/administracion.jsp");
     }
 }
-

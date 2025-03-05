@@ -87,7 +87,7 @@ public class ServletEditarUsuario extends HttpServlet {
             Logger.getLogger(ServletEditarUsuario.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        response.sendRedirect("administracion.jsp");
+        response.sendRedirect("./administrador/administracion.jsp");
         
         processRequest(request, response);
     }

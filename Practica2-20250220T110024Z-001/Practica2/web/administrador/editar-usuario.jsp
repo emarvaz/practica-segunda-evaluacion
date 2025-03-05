@@ -16,7 +16,7 @@
                     Usuario usuario = servicioUsuario.findUsuario(idUsuario);
                 %>
                 
-                <form action="ServletEditarUsuario" method="POST">
+                <form action="../ServletEditarUsuario" method="POST">
                     <input type="hidden" name="id-usuario" value="<%= usuario.getId() %>" />
                         
                     <label for="e-mail-usuario">E-mail</label>

@@ -25,6 +25,6 @@ public class ServletRegistro extends HttpServlet {
 
         servicioSolicitud.crearSolicitud(solicitud);
         
-        response.sendRedirect("solicitud-registro-enviada.jsp");
+        response.sendRedirect("./solicitud-registro-enviada.jsp");
     }
 }

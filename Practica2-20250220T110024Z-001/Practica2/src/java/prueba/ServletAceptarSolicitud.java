@@ -36,7 +36,7 @@ public class ServletAceptarSolicitud extends HttpServlet {
             servicioSolicitud.eliminarSolicitud(idSolicitud);
             
             String to = usuario.getEmail();
-            String subject = "Solicitud aceptada";
+            String subject = "Solicitud de registro aceptada";
             String text = "Bienvenido " + usuario.getNombre() + " " + usuario.getApellidos() + ",\n\nTu solicitud de registro ha sido aprobada. Ahora eres un usuario activo de nuestro sistema.";
             String from = "martvazqedua@gmail.com";
             String password = "msws bmdd upao aipf";
@@ -58,6 +58,6 @@ public class ServletAceptarSolicitud extends HttpServlet {
             }
         }
         
-        response.sendRedirect("administracion.jsp");
+        response.sendRedirect("./administrador/administracion.jsp");
     }
 }
