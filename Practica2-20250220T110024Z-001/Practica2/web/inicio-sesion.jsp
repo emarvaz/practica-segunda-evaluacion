@@ -1,15 +1,15 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         
-        <title>Iniciar sesiÃ³n</title>
+        <title>Iniciar sesión</title>
     </head>
     
     <body>
         <main>
-            <h2>Iniciar sesiÃ³n</h2>
+            <h2>Iniciar sesión</h2>
             
             <% if (request.getAttribute("error") != null) { %>
                 <div>
@@ -23,14 +23,14 @@
                 </div>
                 
                 <div>
-                    <label for="password">ContraseÃ±a:</label>
+                    <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 
-                <button type="submit">Iniciar sesiÃ³n</button>
+                <button type="submit">Iniciar sesión</button>
             </form>
             
-            <p>Â¿No tienes cuenta? <a href="registro-usuario.jsp">RegÃ­strate aquÃ­</a></p>
+            <p>¿No tienes cuenta? <a href="registro-usuario.jsp">Regístrate aquí</a></p>
         </main>
     </body>
 </html>

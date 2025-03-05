@@ -35,7 +35,7 @@ public class ServletEditarUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=ISO-8859-1");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +70,7 @@ public class ServletEditarUsuario extends HttpServlet {
         String nombreUsuario = request.getParameter("nombre-usuario");
         String apellidosUsuario = request.getParameter("apellidos-usuario");
         String tipoUsuario = request.getParameter("tipo-usuario");
-        Boolean estaActivoUsuario = Boolean.valueOf(request.getParameter("esta-activo-usuario"));
+        Boolean estaActivoUsuario = request.getParameter("esta-activo-usuario") != null;
         
         Usuario usuario = servicioUsuario.findUsuario(idUsuario);
         

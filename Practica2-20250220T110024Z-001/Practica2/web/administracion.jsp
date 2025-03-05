@@ -1,11 +1,11 @@
-<%@page import="modelo.entidades.Usuario"%>
-<%@page import="modelo.servicio.ServicioUsuario"%>
-<%@ page import="java.util.List, modelo.entidades.Solicitud, modelo.servicio.ServicioSolicitud" %>
-
+<%@page import="modelo.entidades.Usuario" %>
+<%@page import="modelo.servicio.ServicioUsuario" %>
+<%@page import="java.util.List, modelo.entidades.Solicitud, modelo.servicio.ServicioSolicitud" %>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         
         <title>Solicitudes</title>
     </head>

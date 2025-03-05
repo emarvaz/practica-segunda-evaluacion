@@ -38,7 +38,7 @@ public class ServletCrearDatos extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=ISO-8859-1");
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
         ServicioUsuario servicioUsuario = new ServicioUsuario(entityManagerFactory);
         ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
@@ -55,7 +55,7 @@ public class ServletCrearDatos extends HttpServlet {
         
         Usuario usuario = new Usuario();
         usuario.setNombre("Pepe");
-        usuario.setApellidos("P?rez");
+        usuario.setApellidos("Pérez");
         usuario.setEmail("pepe@iescamas.es");
         usuario.setPassword("pepe");
         usuario.setTipo("normal");
@@ -66,7 +66,7 @@ public class ServletCrearDatos extends HttpServlet {
         
         ExperienciaViaje experienciaViaje = new ExperienciaViaje();
         experienciaViaje.setTitulo("Vacaciones de verano 2024");
-        experienciaViaje.setDescripcion("Pasamos unos d?as en los Pirineos");
+        experienciaViaje.setDescripcion("Pasamos unos días en los Pirineos");
         experienciaViaje.setFechaInicio(new Date());
         experienciaViaje.setUsuario(usuario);
         

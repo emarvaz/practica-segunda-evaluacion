@@ -1,19 +1,19 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         
-        <title>Â¡Bienvenido!</title>
+        <title>¡Bienvenido!</title>
     </head>
     <body>
         <div>
-            <h1>Â¡Bienvenido a la aplicaciÃ³n!</h1>
+            <h1>¡Bienvenido a la aplicación!</h1>
             <div
                 <p>Tu cuenta ha sido activada correctamente.</p>
-                <p>Ya puedes comenzar a utilizar todas las funcionalidades de la aplicaciÃ³n.</p>
+                <p>Ya puedes comenzar a utilizar todas las funcionalidades de la aplicación.</p>
             </div>
-            <a href="index.html">Continuar a la pÃ¡gina principal</a>
+            <a href="index.html">Continuar a la página principal</a>
         </div>
     </body>
 </html>

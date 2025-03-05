@@ -21,7 +21,7 @@ public class ServletInicioSesion extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("ISO-8859-1");
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");

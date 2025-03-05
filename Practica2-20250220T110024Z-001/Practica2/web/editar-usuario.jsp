@@ -1,10 +1,10 @@
 <%@page import="modelo.entidades.Usuario"%>
 <%@page import="modelo.servicio.ServicioUsuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Registro</title>
     </head>
     <body>
@@ -22,8 +22,8 @@
                     <label for="e-mail-usuario">E-mail</label>
                     <input type="email" name="e-mail-usuario" placeholder="E-mail" value="<%= usuario.getEmail() %>" required />
                     
-                    <label for="contrasena-usuario">Contrase√±a</label>
-                    <input type="password" name="contrasena-usuario" placeholder="Contrase√±a" value="<%= usuario.getPassword() %>" required />
+                    <label for="contrasena-usuario">ContraseÒa</label>
+                    <input type="password" name="contrasena-usuario" placeholder="ContraseÒa" value="<%= usuario.getPassword() %>" required />
                     
                     <label for="nombre-usuario">Nombre</label>
                     <input type="text" name="nombre-usuario" placeholder="Nombre" value="<%= usuario.getNombre() %>" required />
@@ -49,13 +49,13 @@
                         </option>
                     </select>
                         
-                    <label for="esta-activo-usuario">Est√° activo</label>
-                    <input type="checkbox" name="esta-activo-usuario"
+                    <label for="esta-activo-usuario">Est· activo</label>
+                    <input type="checkbox" name="esta-activo-usuario" value="true"
                         <% if (usuario.isActivo()) { %>
                             checked
                         <% } %>
-                    required />
-
+                    />
+                    
                     <button type="submit">Guardar</button>
                 </form>
             </section>
