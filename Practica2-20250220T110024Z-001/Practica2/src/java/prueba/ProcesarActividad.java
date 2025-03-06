@@ -5,25 +5,29 @@
 package prueba;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.servicio.ServicioUsuario;
-import modelo.servicio.exceptions.NonexistentEntityException;
+import modelo.entidades.Actividad;
+import modelo.servicio.ServicioActividad;
 
 /**
  *
- * @author Eduardo Martínez Vázquez
+ * @author alfon
  */
-@WebServlet(name = "ServletEliminarUsuario", urlPatterns = {"/administrador/ServletEliminarUsuario"})
-public class ServletEliminarUsuario extends HttpServlet {
-    ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
-    
+@WebServlet(name = "ProcesarActividad", urlPatterns = {"/ProcesarActividad"})
+public class ProcesarActividad extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,7 +39,8 @@ public class ServletEliminarUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=ISO-8859-1");
+        response.setContentType("text/html;charset=UTF-8");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,15 +69,41 @@ public class ServletEliminarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idUsuario = request.getParameter("id-usuario");
-        
+
+        request.setCharacterEncoding("UTF-8");
+
+        String titulo = request.getParameter("titulo");
+        String descripcion = request.getParameter("descripcion");
+        String fechaInicio = request.getParameter("fecha_inicio");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
         try {
-            servicioUsuario.destroy(Long.valueOf(idUsuario));
-        } catch (NonexistentEntityException exception) {
-            Logger.getLogger(ServletEliminarUsuario.class.getName()).log(Level.SEVERE, null, exception);
+            fecha = formato.parse(fechaInicio);
+        } catch (ParseException ex) {
+            Logger.getLogger(ServletAplicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        response.sendRedirect("ServletAdministracion");        
+
+        // Crear e inicilizar el objeto Actividad
+        Actividad actividad = new Actividad();
+        actividad.setTitulo(titulo);
+        actividad.setDescripcion(descripcion);
+        actividad.setFecha(fecha);
+
+        // Guardar en la base de datos
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica2PU");
+        ServicioActividad exp = new ServicioActividad(emf);
+
+        try {
+            exp.create(actividad);
+            
+            
+            request.getRequestDispatcher("experiencia.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al registrar actividad: " + e.getMessage());
+            request.getRequestDispatcher("actividad.jsp").forward(request, response);
+        } finally {
+            emf.close();
+        }
     }
 
     /**

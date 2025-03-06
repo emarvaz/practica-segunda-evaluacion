@@ -33,25 +33,23 @@ public class ServletInicioSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
-        ServicioUsuario servicioUsuario = new ServicioUsuario(entityManagerFactory);
-        
         try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("contrasena");
+        
+            ServicioUsuario servicioUsuario = new ServicioUsuario(Persistence.createEntityManagerFactory("Practica2PU"));
             Usuario usuario = servicioUsuario.findByEmail(email);
             
             if (usuario != null && usuario.getPassword().equals(password)) {
                 if (!usuario.isActivo()) {
                     request.setAttribute("error", usuario.getEmail() + " ha sido inactivada por el administrador.");
-                    request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
+                    request.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
                     
                     return;
                 }
                 
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuario);
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("usuario", usuario);
                 
                 if (usuario.getTipo().equals("administrador")) {
                     response.sendRedirect("administrador/ServletAdministracion");
@@ -60,16 +58,15 @@ public class ServletInicioSesion extends HttpServlet {
                 }
                     
             } else {
-                request.setAttribute("error", "Email o contraseña incorrectos");
-                request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
+                request.setAttribute("error", "El email o la contraseña son incorrectos.");
+                request.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+
+                
+                return;
             }
-        } catch (Exception e) {
-            request.setAttribute("error", "Error en el login: " + e.getMessage());
-            request.getRequestDispatcher("/ServletInicioSesion").forward(request, response);
-        } finally {
-            entityManagerFactory.close();
+        } catch (Exception exception) {
+            request.setAttribute("error", "El inicio de sesión ha fallado: " + exception.getMessage());
+            request.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
         }
-        
-        processRequest(request, response);
     }
 }
