@@ -15,7 +15,7 @@
         <h1>Crear Nueva Actividad</h1>
         
         <!-- Formulario creación actividades -->
-        <form action="ProcesarActividad" method="POST">
+        <form action="ServletCrearActividad" method="POST">
             <div>
                 <label for="titulo">Título:</label>
                 <input type="text" id="titulo" name="titulo" required>
@@ -28,7 +28,7 @@
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha_inicio" required>
             </div>
-            <button type="submit">Crear Actividad</button>
+            <button type="submit">Crear actividad</button>
         </form>
         
         <!-- Formulario creación Imágenes -->

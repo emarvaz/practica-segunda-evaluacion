@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,8 +36,8 @@ public class ExperienciaViaje implements Serializable, Comparable<ExperienciaVia
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     
-    @OneToMany
-    private List<Actividad> actividades;
+    @OneToMany(mappedBy = "experienciaViaje")
+    private List<Actividad> actividades = new ArrayList<>();
     
     @ManyToOne
     private Usuario usuario;

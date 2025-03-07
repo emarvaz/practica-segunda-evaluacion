@@ -26,7 +26,7 @@ import modelo.servicio.ServicioUsuario;
  * @author alfon
  */
 @WebServlet(name = "ProcesarComentario", urlPatterns = {"/ProcesarComentario"})
-public class ProcesarComentario extends HttpServlet {
+public class ServletComentario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

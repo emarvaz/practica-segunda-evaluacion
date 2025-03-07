@@ -5,17 +5,19 @@
 package prueba;
 
 import java.io.IOException;
+import java.util.List;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.entidades.Actividad;
 import modelo.servicio.ServicioExperienciaViaje;
 import modelo.entidades.ExperienciaViaje;
 
-@WebServlet(name = "ServletMostrarExperienciaViaje", urlPatterns = {"/normal/ServletMostrarExperienciaViaje"})
-public class ServletMostrarExperienciaViaje extends HttpServlet {
+@WebServlet(name = "ServletExperienciaViaje", urlPatterns = {"/normal/ServletExperienciaViaje"})
+public class ServletExperienciaViaje extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,15 +36,15 @@ public class ServletMostrarExperienciaViaje extends HttpServlet {
 
             ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(Persistence.createEntityManagerFactory("Practica2PU"));   
             ExperienciaViaje experienciaViaje = servicioExperienciaViaje.findExperienciaViaje(idExperienciaViaje);
-
+            
             if (experienciaViaje != null) {
                 request.setAttribute("experienciaViaje", experienciaViaje);
                 getServletContext().getRequestDispatcher("/normal/experiencia-viaje.jsp").forward(request, response);
             } else {
-                response.sendRedirect(request.getContextPath() + "/normal/aplicacion.jsp");
+                response.sendRedirect(request.getContextPath() + "/normal/ServletAplicacion");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/normal/aplicacion.jsp");
+            response.sendRedirect(request.getContextPath() + "/normal/ServletAplicacion");
         }
     }
 

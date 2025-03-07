@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,19 +23,27 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Actividad implements Serializable, Comparable<Actividad> {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @Column(length = 30, nullable = false)
     private String titulo;
+    
     @Column(length = 400, nullable = false)
     private String descripcion;
+    
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    
     private List<String> imagenes;
+    
+    @JoinColumn(name = "experienciaviaje_id", nullable = false)
+    @ManyToOne
+    private ExperienciaViaje experienciaViaje;
     
     public Actividad() {
         imagenes = new ArrayList();
@@ -77,6 +87,14 @@ public class Actividad implements Serializable, Comparable<Actividad> {
 
     public void setImagenes(List<String> imagenes) {
         this.imagenes = imagenes;
+    }
+    
+    public ExperienciaViaje getExperienciaViaje() {
+        return experienciaViaje;
+    }
+
+    public void setExperienciaViaje(ExperienciaViaje experienciaViaje) {
+        this.experienciaViaje = experienciaViaje;
     }
     
     @Override

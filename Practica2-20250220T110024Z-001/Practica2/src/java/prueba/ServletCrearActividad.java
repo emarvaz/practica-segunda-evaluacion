@@ -21,27 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.entidades.Actividad;
 import modelo.servicio.ServicioActividad;
 
-/**
- *
- * @author alfon
- */
-@WebServlet(name = "ProcesarActividad", urlPatterns = {"/ProcesarActividad"})
-public class ProcesarActividad extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-    }
+@WebServlet(name = "ServletCrearActividad", urlPatterns = {"/normal/ServletCrearActividad"})
+public class ServletCrearActividad extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,7 +36,7 @@ public class ProcesarActividad extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp");
     }
 
     /**
@@ -69,40 +50,26 @@ public class ProcesarActividad extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
-
-        String titulo = request.getParameter("titulo");
-        String descripcion = request.getParameter("descripcion");
-        String fechaInicio = request.getParameter("fecha_inicio");
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = null;
+        
         try {
-            fecha = formato.parse(fechaInicio);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletAplicacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            String titulo = request.getParameter("titulo");
+            String descripcion = request.getParameter("descripcion");
+            String fechaInicio = request.getParameter("fecha_inicio");
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = formato.parse(fechaInicio);
 
-        // Crear e inicilizar el objeto Actividad
-        Actividad actividad = new Actividad();
-        actividad.setTitulo(titulo);
-        actividad.setDescripcion(descripcion);
-        actividad.setFecha(fecha);
+            Actividad actividad = new Actividad();
+            actividad.setTitulo(titulo);
+            actividad.setDescripcion(descripcion);
+            actividad.setFecha(fecha);
 
-        // Guardar en la base de datos
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica2PU");
-        ServicioActividad exp = new ServicioActividad(emf);
-
-        try {
-            exp.create(actividad);
+            ServicioActividad servicioActividad = new ServicioActividad(Persistence.createEntityManagerFactory("Practica2PU"));
+            servicioActividad.create(actividad);
             
-            
-            request.getRequestDispatcher("experiencia.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", "Error al registrar actividad: " + e.getMessage());
-            request.getRequestDispatcher("actividad.jsp").forward(request, response);
-        } finally {
-            emf.close();
+            request.getRequestDispatcher("/normal/actividad.jsp").forward(request, response);
+        } catch (Exception exception) {
+                request.setAttribute("error", "Ha ocurrido un error" + exception.toString());
         }
     }
 

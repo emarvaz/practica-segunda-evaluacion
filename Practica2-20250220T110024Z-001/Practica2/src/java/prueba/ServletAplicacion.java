@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import modelo.entidades.ExperienciaViaje;
-import modelo.entidades.Usuario;
 import modelo.servicio.ServicioExperienciaViaje;
 
 @WebServlet(name = "ServletAplicacion", urlPatterns = {"/normal/ServletAplicacion"})

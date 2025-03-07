@@ -60,7 +60,6 @@ public class ServletInicioSesion extends HttpServlet {
             } else {
                 request.setAttribute("error", "El email o la contraseña son incorrectos.");
                 request.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
-
                 
                 return;
             }

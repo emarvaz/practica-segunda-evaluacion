@@ -19,43 +19,48 @@
         <title>${experienciaViaje.titulo}</title>
     </head>
     <body>
-        <h1>Título: ${experienciaViaje.titulo}</h1>
-        
-        <p>Descripción: ${experienciaViaje.descripcion}</p>
-        <p>Fecha de Inicio: ${experienciaViaje.fechaInicio}</p>
+        <section>
+            <h1>Título: ${experienciaViaje.titulo}</h1>
 
-        <h3>Actividades</h3>
-        <ul>
-            <core:choose>
-                <core:when test="${not empty experienciaViaje.actividades}">
-                    <core:forEach var="actividad" items="${experienciaViaje.actividades}">
-                        <li>${actividad.titulo} - ${actividad.descripcion}</li>
-                    </core:forEach>
-                </core:when>
-                <core:otherwise>
-                    <li>No hay actividades asociadas.</li>
-                </core:otherwise>
-            </core:choose>
-        </ul>
+            <p>Descripción: ${experienciaViaje.descripcion}</p>
+            <p>Fecha de Inicio: ${experienciaViaje.fechaInicio}</p>
+        </section>
 
-        <div>
-            <a href="crear-actividad.jsp?id=${experienciaViaje.id}">Añadir actividad</a>
-        </div>
+        <section>
+            <h3>Actividades</h3>
 
-        <h3>Agregar comentario:</h3>
-        <form action="ProcesarComentario" method="POST">
-            <input type="hidden" name="experienciaId" value="">
+            <ul>
+                <core:choose>
+                    <core:when test="${not empty experienciaViaje.actividades}">
+                        <core:forEach var="actividad" items="${experienciaViaje.actividades}">
+                            <li>${actividad.titulo} - ${actividad.descripcion}</li>
+                        </core:forEach>
+                    </core:when>
+                    <core:otherwise>
+                        <li>No hay actividades asociadas.</li>
+                    </core:otherwise>
+                </core:choose>
+            </ul>
             
-            <input type="hidden" name="usuarioId" value="">
-            <div>
+            <a href="crear-actividad.jsp?id=${experienciaViaje.id}"><button>Añadir actividad</button></a>
+        </section>
+        
+        <section>
+            <h3>Agregar comentario:</h3>
+            
+            <form action="ServletComentario" method="POST">
+                <input type="hidden" name="id-experiencia-viaje" value="">
+                <input type="hidden" name="id-usuario" value="">
+                
                 <label for="contenido">Comentario:</label>
-                <textarea id="contenido" name="contenido" required></textarea>
-            </div>
-            <button type="submit">Enviar Comentario</button>
-        </form>
+                <textarea name="comentario" required></textarea>
+                    
+                <button type="submit">Enviar comentario</button>
+            </form>
+        </section>
+
         
-        <p>No se encontró la experiencia.</p>
-        
+                
         <section>
             <a href="ServletAplicacion">Volver</a>
         </section>

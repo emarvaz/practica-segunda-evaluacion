@@ -32,7 +32,7 @@
                             <core:forEach var="experienciaViaje" items="${experienciasViajes}">
                                 <tr>
                                     <td>
-                                        <a href="ServletMostrarExperienciaViaje?id-experiencia-viaje=${experienciaViaje.id}">${experienciaViaje.titulo}</a>
+                                        <a href="ServletExperienciaViaje?id-experiencia-viaje=${experienciaViaje.id}">${experienciaViaje.titulo}</a>
                                     </td>
                                     <td>${experienciaViaje.fechaInicio}</td>
                                 </tr>

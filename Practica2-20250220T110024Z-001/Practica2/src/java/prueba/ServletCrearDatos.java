@@ -78,6 +78,7 @@ public class ServletCrearDatos extends HttpServlet {
         actividad.setDescripcion("Subimos por el valle de Ordesa hasta la cascada de La Cola de Caballo");
         actividad.getImagenes().add("foto1");
         
+        actividad.setExperienciaViaje(experienciaViaje);
         experienciaViaje.getActividades().add(actividad);
         servicioActividad.create(actividad);
         
