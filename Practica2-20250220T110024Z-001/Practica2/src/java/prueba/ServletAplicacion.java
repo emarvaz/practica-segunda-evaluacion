@@ -54,32 +54,7 @@ public class ServletAplicacion extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String descripcion = request.getParameter("descripcion");
-
-        String fechaInicio = request.getParameter("fecha_inicio");
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaInicial = null;
-        try {
-            fechaInicial = formatoFecha.parse(fechaInicio);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        String titulo = request.getParameter("titulo");
-        
-        HttpSession sesion = request.getSession(false);
-        Usuario usuario = null;
-
-        if (sesion != null) {
-            usuario = (Usuario) sesion.getAttribute("usuario");
-        }
-
-        ExperienciaViaje experiencia = new ExperienciaViaje(titulo, descripcion, fechaInicial, usuario);
-
-        servicioExperienciaViaje.create(experiencia);
-
-        response.sendRedirect("ServletAplicacion");
+        throws ServletException, IOException {        
     }
 
     /**

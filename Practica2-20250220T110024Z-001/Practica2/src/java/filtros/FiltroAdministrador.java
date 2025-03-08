@@ -34,7 +34,6 @@ public class FiltroAdministrador implements Filter {
         Usuario usuario = (Usuario)sesion.getAttribute("usuario");
         
         if (usuario == null) {
-            // Si no hay usuario registrado.
             respuesta.sendRedirect(peticion.getServletContext().getContextPath() + "/ServletInicioSesion");
             
             return;

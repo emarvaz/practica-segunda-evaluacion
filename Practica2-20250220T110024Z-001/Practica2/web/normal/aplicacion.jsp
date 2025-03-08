@@ -19,7 +19,7 @@
             <section>
                 <h1>Experiencias</h1>
                 
-                <a href="ServletCrearExperiencia"><button>Crear nueva experiencia</button></a>
+                <a href="ServletCrearExperienciaViaje"><button>Crear nueva experiencia viaje</button></a>
 
                 <table border="1">
                     <tr>

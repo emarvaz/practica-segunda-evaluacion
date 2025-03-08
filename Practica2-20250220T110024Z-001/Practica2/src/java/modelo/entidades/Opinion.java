@@ -25,13 +25,7 @@ public class Opinion implements Serializable {
     private ExperienciaViaje experiencia;
 
     public Opinion() {
-    }
-
-    public Opinion(String contenido, Usuario usuario, ExperienciaViaje experiencia) {
-        this.contenido = contenido;
-        this.usuario = usuario;
-        this.experiencia = experiencia;
-    }    
+    }  
         
     public Long getId() {
         return id;
