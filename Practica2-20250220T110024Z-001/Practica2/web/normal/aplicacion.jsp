@@ -19,7 +19,7 @@
             <section>
                 <h1>Experiencias</h1>
                 
-                <a href="crear-experiencia.jsp"><button>Crear nueva experiencia</button></a>
+                <a href="ServletCrearExperiencia"><button>Crear nueva experiencia</button></a>
 
                 <table border="1">
                     <tr>
@@ -32,7 +32,7 @@
                             <core:forEach var="experienciaViaje" items="${experienciasViajes}">
                                 <tr>
                                     <td>
-                                        <a href="ServletExperienciaViaje?id-experiencia-viaje=${experienciaViaje.id}">${experienciaViaje.titulo}</a>
+                                        <a href="ServletExperienciaViaje?idExperienciaViaje=${experienciaViaje.id}">${experienciaViaje.titulo}</a>
                                     </td>
                                     <td>${experienciaViaje.fechaInicio}</td>
                                 </tr>

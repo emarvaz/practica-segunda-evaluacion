@@ -14,10 +14,6 @@ import javax.persistence.criteria.Root;
 import modelo.entidades.Actividad;
 import modelo.servicio.exceptions.NonexistentEntityException;
 
-/**
- *
- * @author jose
- */
 public class ServicioActividad implements Serializable {
 
     public ServicioActividad(EntityManagerFactory emf) {

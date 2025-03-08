@@ -5,14 +5,13 @@
 package prueba;
 
 import java.io.IOException;
-import java.util.List;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.entidades.Actividad;
 import modelo.servicio.ServicioExperienciaViaje;
 import modelo.entidades.ExperienciaViaje;
 
@@ -31,10 +30,12 @@ public class ServletExperienciaViaje extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
+        
         try {
-            Long idExperienciaViaje = Long.valueOf(request.getParameter("id-experiencia-viaje"));
+            Long idExperienciaViaje = Long.valueOf(request.getParameter("idExperienciaViaje"));
 
-            ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(Persistence.createEntityManagerFactory("Practica2PU"));   
+            ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);   
             ExperienciaViaje experienciaViaje = servicioExperienciaViaje.findExperienciaViaje(idExperienciaViaje);
             
             if (experienciaViaje != null) {
@@ -45,6 +46,8 @@ public class ServletExperienciaViaje extends HttpServlet {
             }
         } catch (NumberFormatException e) {
             response.sendRedirect(request.getContextPath() + "/normal/ServletAplicacion");
+        } finally {
+            entityManagerFactory.close();
         }
     }
 

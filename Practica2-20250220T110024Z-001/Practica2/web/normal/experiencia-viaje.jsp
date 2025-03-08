@@ -33,7 +33,11 @@
                 <core:choose>
                     <core:when test="${not empty experienciaViaje.actividades}">
                         <core:forEach var="actividad" items="${experienciaViaje.actividades}">
-                            <li>${actividad.titulo} - ${actividad.descripcion}</li>
+                            <li>
+                                <div>${actividad.titulo}</div>
+                                <div>${actividad.fecha}</div>
+                                <div>${actividad.descripcion}</div>
+                            </li>
                         </core:forEach>
                     </core:when>
                     <core:otherwise>
@@ -42,14 +46,14 @@
                 </core:choose>
             </ul>
             
-            <a href="crear-actividad.jsp?id=${experienciaViaje.id}"><button>Añadir actividad</button></a>
+            <a href="ServletCrearActividad?idExperienciaViaje=${experienciaViaje.id}"><button>Crear actividad</button></a>
         </section>
         
         <section>
-            <h3>Agregar comentario:</h3>
+            <h3>Crear comentario:</h3>
             
             <form action="ServletComentario" method="POST">
-                <input type="hidden" name="id-experiencia-viaje" value="">
+                <input type="hidden" name="idExperienciaViaje" value="">
                 <input type="hidden" name="id-usuario" value="">
                 
                 <label for="contenido">Comentario:</label>

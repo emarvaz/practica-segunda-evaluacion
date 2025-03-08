@@ -1,49 +1,39 @@
-<%-- 
-    Document   : actividad
-    Created on : 2 mar 2025, 9:31:28
-    Author     : alfon
---%>
-
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>JSP Page</title>
+        
+        <title>Crear actividad</title>
     </head>
     <body>
-        <h1>Crear Nueva Actividad</h1>
+        <h1>Crear actividad</h1>
         
-        <!-- Formulario creación actividades -->
+        <div>${error}</div>
+        
         <form action="ServletCrearActividad" method="POST">
             <div>
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required>
+                <input type="hidden" name="idExperienciaViaje" value="${param.idExperienciaViaje}">
             </div>
             <div>
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required></textarea>
+                <label for="titulo-actividad">Título:</label>
+                <input type="text" name="titulo-actividad" required>
             </div>
             <div>
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha_inicio" required>
+                <label for="descripcion-actividad">Descripción:</label>
+                <textarea name="descripcion-actividad" required></textarea>
             </div>
+            <div>
+                <label for="fecha-inicio-actividad">Fecha:</label>
+                <input type="date" name="fecha-inicio-actividad" required>
+            </div>
+            
             <button type="submit">Crear actividad</button>
         </form>
         
-        <!-- Formulario creación Imágenes -->
-
-        <form action="ProcesatActividadImagen" method="POST">
-            <div>
-                <label for="imagenes">Imágenes (URLs):</label>
-                <input type="file" id="imagenes" name="imagenes">
-            </div>
-            <button type="submit">Añadir imagen a la actividad</button>
-        </form >
-        
-        <!-- Bótón de regreso -->
-        <div>
-            <a href="experiencia.jsp?id=<%= request.getParameter("id")%>" class="btn-continuar">Regresar</a>
-        </div>
+        <section>
+            <a href="ServletExperienciaViaje?idExperienciaViaje=${param.idExperienciaViaje}">Volver a la experiencia de viaje</a>
+        </section>
     </body>
 </html>

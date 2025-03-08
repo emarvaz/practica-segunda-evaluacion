@@ -46,6 +46,13 @@ public class ExperienciaViaje implements Serializable, Comparable<ExperienciaVia
         actividades = new ArrayList();
     }
     
+    public ExperienciaViaje(String titulo, String descripcion, Date fechaInicio, Usuario usuario) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.usuario = usuario;
+    }
+    
     public Long getId() {
         return id;
     }

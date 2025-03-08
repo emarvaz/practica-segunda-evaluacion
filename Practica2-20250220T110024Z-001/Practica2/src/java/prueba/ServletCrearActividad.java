@@ -5,12 +5,8 @@
 package prueba;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
@@ -19,7 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.entidades.Actividad;
+import modelo.entidades.ExperienciaViaje;
 import modelo.servicio.ServicioActividad;
+import modelo.servicio.ServicioExperienciaViaje;
 
 @WebServlet(name = "ServletCrearActividad", urlPatterns = {"/normal/ServletCrearActividad"})
 public class ServletCrearActividad extends HttpServlet {
@@ -36,7 +34,7 @@ public class ServletCrearActividad extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp");
+        getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
     }
 
     /**
@@ -52,24 +50,36 @@ public class ServletCrearActividad extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
+        
         try {
-            String titulo = request.getParameter("titulo");
-            String descripcion = request.getParameter("descripcion");
-            String fechaInicio = request.getParameter("fecha_inicio");
+            String titulo = request.getParameter("titulo-actividad");
+            String descripcion = request.getParameter("descripcion-actividad");
+            String fechaInicio = request.getParameter("fecha-inicio-actividad");
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = formato.parse(fechaInicio);
+            Long idExperienciaViaje = Long.valueOf(request.getParameter("idExperienciaViaje"));
 
+            ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
+            ExperienciaViaje experienciaViaje = servicioExperienciaViaje.findExperienciaViaje(idExperienciaViaje);
+            
             Actividad actividad = new Actividad();
             actividad.setTitulo(titulo);
             actividad.setDescripcion(descripcion);
             actividad.setFecha(fecha);
+            actividad.setExperienciaViaje(experienciaViaje);
 
-            ServicioActividad servicioActividad = new ServicioActividad(Persistence.createEntityManagerFactory("Practica2PU"));
+            ServicioActividad servicioActividad = new ServicioActividad(entityManagerFactory);
             servicioActividad.create(actividad);
             
-            request.getRequestDispatcher("/normal/actividad.jsp").forward(request, response);
+            response.sendRedirect("ServletExperienciaViaje?idExperienciaViaje=" + idExperienciaViaje);
         } catch (Exception exception) {
-                request.setAttribute("error", "Ha ocurrido un error" + exception.toString());
+            request.setAttribute("error", "Ha ocurrido un error: " + exception.toString());
+            exception.printStackTrace();
+            
+            request.getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
+        } finally {
+            entityManagerFactory.close();
         }
     }
 
