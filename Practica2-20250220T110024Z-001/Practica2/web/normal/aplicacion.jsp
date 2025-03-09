@@ -19,11 +19,10 @@
             <section>
                 <h1>Experiencias</h1>
                 
-                <a href="ServletCrearExperienciaViaje"><button>Crear nueva experiencia viaje</button></a>
-
                 <table border="1">
                     <tr>
                         <th>Título</th>
+                        <th>Descripción</th>
                         <th>Fecha de inicio</th>
                     </tr>
                     
@@ -34,13 +33,15 @@
                                     <td>
                                         <a href="ServletExperienciaViaje?idExperienciaViaje=${experienciaViaje.id}">${experienciaViaje.titulo}</a>
                                     </td>
-                                    <td>${experienciaViaje.fechaInicio}</td>
+                                    <td>${experienciaViaje.descripcion}</td>
+                                    <fmt:formatDate var="fechaInicioFormateada" value="${experienciaViaje.fechaInicio}" pattern="yyyy-MM-dd" />
+                                    <td>${fechaInicioFormateada}</td>
                                 </tr>
                             </core:forEach>
                         </core:when>
                         <core:otherwise>
                             <tr>
-                                <td colspan="2">No hay experiencias de viaje registradas.</td>
+                                <td colspan="3">No hay experiencias de viaje registradas.</td>
                             </tr>
                         </core:otherwise>
                     </core:choose>
@@ -48,7 +49,8 @@
             </section>
             
             <section>
-                <a href="../">Volver a la página principal</a>
+                <a href="ServletProcesarExperienciaViaje"><button>Administrar mis experiencias de viajes</button></a>
+                <a href="../"><button>Volver a la página principal</button></a>
             </section>
         </main>
     </body>

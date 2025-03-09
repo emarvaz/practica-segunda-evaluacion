@@ -40,6 +40,7 @@ public class ServletExperienciaViaje extends HttpServlet {
             
             if (experienciaViaje != null) {
                 request.setAttribute("experienciaViaje", experienciaViaje);
+                
                 getServletContext().getRequestDispatcher("/normal/experiencia-viaje.jsp").forward(request, response);
             } else {
                 response.sendRedirect(request.getContextPath() + "/normal/ServletAplicacion");

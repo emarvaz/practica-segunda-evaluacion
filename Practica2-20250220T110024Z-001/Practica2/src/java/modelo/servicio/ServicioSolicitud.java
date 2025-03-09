@@ -4,6 +4,7 @@ import modelo.entidades.Solicitud;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 public class ServicioSolicitud {
@@ -57,6 +58,20 @@ public class ServicioSolicitud {
                 entityManager.remove(solicitud);
             }
             entityManager.getTransaction().commit();
+        } finally {
+            entityManager.close();
+        }
+    }
+    
+    public Solicitud findByEmail(String email) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            TypedQuery<Solicitud> query = entityManager.createQuery(
+                "SELECT s FROM Solicitud s WHERE s.email = :email", Solicitud.class);
+            query.setParameter("email", email);
+            return query.getSingleResult();
+        } catch (NoResultException exception) {
+            return null;
         } finally {
             entityManager.close();
         }

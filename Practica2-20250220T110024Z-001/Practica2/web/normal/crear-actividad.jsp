@@ -10,8 +10,6 @@
     <body>
         <h1>Crear actividad</h1>
         
-        <div>${error}</div>
-        
         <form action="ServletCrearActividad" method="POST">
             <div>
                 <input type="hidden" name="idExperienciaViaje" value="${param.idExperienciaViaje}">
@@ -33,7 +31,7 @@
         </form>
         
         <section>
-            <a href="ServletExperienciaViaje?idExperienciaViaje=${param.idExperienciaViaje}">Volver a la experiencia de viaje</a>
+            <a href="ServletProcesarExperienciaViaje">Volver</a>
         </section>
     </body>
 </html>

@@ -159,4 +159,14 @@ public class ServicioExperienciaViaje implements Serializable {
         }
     }
     
+    public List<ExperienciaViaje> findExperienciaViajeEntitiesByUsuario(Long idUsuario) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            return entityManager.createQuery("SELECT e FROM ExperienciaViaje e WHERE e.usuario.id = :idUsuario", ExperienciaViaje.class)
+                    .setParameter("idUsuario", idUsuario).getResultList();
+        } finally {
+            entityManager.close();
+        }
+    }
+   
 }

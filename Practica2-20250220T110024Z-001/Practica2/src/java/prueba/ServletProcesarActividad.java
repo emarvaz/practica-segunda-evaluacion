@@ -19,8 +19,8 @@ import modelo.entidades.ExperienciaViaje;
 import modelo.servicio.ServicioActividad;
 import modelo.servicio.ServicioExperienciaViaje;
 
-@WebServlet(name = "ServletCrearActividad", urlPatterns = {"/normal/ServletCrearActividad"})
-public class ServletCrearActividad extends HttpServlet {
+@WebServlet(name = "ServletProcesarActividad", urlPatterns = {"/normal/ServletProcesarActividad"})
+public class ServletProcesarActividad extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -33,8 +33,7 @@ public class ServletCrearActividad extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
+            throws ServletException, IOException {        
     }
 
     /**
@@ -53,31 +52,31 @@ public class ServletCrearActividad extends HttpServlet {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
         
         try {
-            String titulo = request.getParameter("titulo-actividad");
-            String descripcion = request.getParameter("descripcion-actividad");
-            String fechaInicio = request.getParameter("fecha-inicio-actividad");
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha = formato.parse(fechaInicio);
             Long idExperienciaViaje = Long.valueOf(request.getParameter("idExperienciaViaje"));
-
+            Long idActividad = Long.valueOf(request.getParameter("idActividad"));
+            String accion = request.getParameter("accion");
+            
             ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
             ExperienciaViaje experienciaViaje = servicioExperienciaViaje.findExperienciaViaje(idExperienciaViaje);
             
-            Actividad actividad = new Actividad();
-            actividad.setTitulo(titulo);
-            actividad.setDescripcion(descripcion);
-            actividad.setFecha(fecha);
-            actividad.setExperienciaViaje(experienciaViaje);
-
             ServicioActividad servicioActividad = new ServicioActividad(entityManagerFactory);
-            servicioActividad.create(actividad);
             
-            response.sendRedirect("ServletProcesarExperienciaViaje");
+            if (accion.equals("crear")) {                
+                getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
+                
+                return;
+            } else if (accion.equals("eliminar")) {
+                servicioActividad.destroy(idActividad);
+
+                response.sendRedirect("ServletProcesarExperienciaViaje");
+                
+                return;
+            }
         } catch (Exception exception) {
             request.setAttribute("error", "Ha ocurrido un error: " + exception.toString());
             exception.printStackTrace();
             
-            request.getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
+            request.getRequestDispatcher("/normal/administracion-usuario.jsp").forward(request, response);
         } finally {
             entityManagerFactory.close();
         }

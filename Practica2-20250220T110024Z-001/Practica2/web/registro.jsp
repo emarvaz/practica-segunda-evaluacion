@@ -8,6 +8,7 @@
     </head>
     <body>
         <main>
+            <p>${error}</p>
             <form action="ServletRegistro" method="POST">
                 <input type="email" name="email" placeholder="E-mail" required>
                 <input type="password" name="password" placeholder="Contraseña" required>

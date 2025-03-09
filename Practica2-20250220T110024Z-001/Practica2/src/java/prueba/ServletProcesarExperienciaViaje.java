@@ -5,8 +5,7 @@
 package prueba;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
@@ -14,13 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.entidades.Actividad;
 import modelo.entidades.ExperienciaViaje;
-import modelo.servicio.ServicioActividad;
+import modelo.entidades.Usuario;
 import modelo.servicio.ServicioExperienciaViaje;
+import modelo.servicio.ServicioUsuario;
 
-@WebServlet(name = "ServletCrearActividad", urlPatterns = {"/normal/ServletCrearActividad"})
-public class ServletCrearActividad extends HttpServlet {
+/**
+ *
+ * @author Eduardo Martínez Vázquez
+ */
+@WebServlet(name = "ServletProcesarExperienciaViaje", urlPatterns = {"/normal/ServletProcesarExperienciaViaje"})
+public class ServletProcesarExperienciaViaje extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,7 +37,23 @@ public class ServletCrearActividad extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
+        try {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
+            ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
+
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+            if (usuario != null) {
+                List<ExperienciaViaje> experienciasViajes = servicioExperienciaViaje.findExperienciaViajeEntitiesByUsuario(usuario.getId());
+
+                request.setAttribute("experienciasViajes", experienciasViajes);
+                getServletContext().getRequestDispatcher("/normal/administracion-usuario.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/normal/ServletInicioSesion");
+            }
+        } catch (Exception exception) {
+            request.setAttribute("error", "Algo no ha salido bien: " + exception);
+        }
     }
 
     /**
@@ -48,36 +67,23 @@ public class ServletCrearActividad extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Practica2PU");
         
         try {
-            String titulo = request.getParameter("titulo-actividad");
-            String descripcion = request.getParameter("descripcion-actividad");
-            String fechaInicio = request.getParameter("fecha-inicio-actividad");
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha = formato.parse(fechaInicio);
             Long idExperienciaViaje = Long.valueOf(request.getParameter("idExperienciaViaje"));
-
+            String accion = request.getParameter("accion");
+            
             ServicioExperienciaViaje servicioExperienciaViaje = new ServicioExperienciaViaje(entityManagerFactory);
-            ExperienciaViaje experienciaViaje = servicioExperienciaViaje.findExperienciaViaje(idExperienciaViaje);
-            
-            Actividad actividad = new Actividad();
-            actividad.setTitulo(titulo);
-            actividad.setDescripcion(descripcion);
-            actividad.setFecha(fecha);
-            actividad.setExperienciaViaje(experienciaViaje);
 
-            ServicioActividad servicioActividad = new ServicioActividad(entityManagerFactory);
-            servicioActividad.create(actividad);
-            
-            response.sendRedirect("ServletProcesarExperienciaViaje");
+            if (accion.equals("eliminar")) {
+                servicioExperienciaViaje.destroy(idExperienciaViaje);
+                
+                response.sendRedirect("ServletProcesarExperienciaViaje");
+            } else {
+                response.sendRedirect("ServletProcesarExperienciaViaje");
+            }
         } catch (Exception exception) {
-            request.setAttribute("error", "Ha ocurrido un error: " + exception.toString());
-            exception.printStackTrace();
             
-            request.getRequestDispatcher("/normal/crear-actividad.jsp").forward(request, response);
         } finally {
             entityManagerFactory.close();
         }

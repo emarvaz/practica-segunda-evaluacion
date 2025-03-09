@@ -48,22 +48,6 @@
             
             <a href="ServletCrearActividad?idExperienciaViaje=${experienciaViaje.id}"><button>Crear actividad</button></a>
         </section>
-        
-        <section>
-            <h3>Crear comentario:</h3>
-            
-            <form action="ServletComentario" method="POST">
-                <input type="hidden" name="idExperienciaViaje" value="">
-                <input type="hidden" name="id-usuario" value="">
-                
-                <label for="contenido">Comentario:</label>
-                <textarea name="comentario" required></textarea>
-                    
-                <button type="submit">Enviar comentario</button>
-            </form>
-        </section>
-
-        
                 
         <section>
             <a href="ServletAplicacion">Volver</a>
